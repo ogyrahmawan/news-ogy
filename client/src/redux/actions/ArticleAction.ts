@@ -14,6 +14,7 @@ export const setLoading = () => {
 }
 
 export const fetchArticle = () => (dispatch: any) => {
+  console.log('test')
   axios({
     url: "/articles",
     method: "GET",
@@ -33,10 +34,11 @@ export const fetchArticle = () => (dispatch: any) => {
 export const addArticle = (payload:any) => (dispatch: any) => {
   axios({
     url: "articles",
-    method: "GET",
+    method: "POST",
     headers: {
       access_token: localStorage.access_token
-    }
+    },
+    data: payload
   })
     .then(res => {
       console.log(res.data)

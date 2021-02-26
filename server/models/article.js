@@ -11,14 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Article.belongsTo(models.User)
+      Article.belongsTo(models.User, {
+        as: "Writer",
+        targetKey: "id",
+        foreignKey: "WriterId" 
+      })
+      Article.belongsTo(models.User, {
+        as: "Editor",
+        targetKey:  "id",
+        foreignKey: "EditorId" 
+      })
     }
   };
   Article.init({
     title: DataTypes.STRING,
     body: DataTypes.STRING,
-    WriterId: DataTypes.INTEGER,
-    EditorId: DataTypes.INTEGER
+    WriterId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
+    EditorId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Article',

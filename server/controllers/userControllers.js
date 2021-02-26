@@ -52,5 +52,20 @@ class UserController {
       next(error)
     }
   }
+  static async getEditorData (req, res, next)  {
+    try {
+      let data = await User.findAll({
+        where: {
+          role: 'editor'
+        },
+        attributes: {
+          exclude: ['password']
+        }
+      })
+      res.status(200).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 module.exports = UserController

@@ -8,7 +8,14 @@ class ArticleController {
         let data = await Article.findAll({
           where: {
             WriterId: id
-          }
+          },
+          include: [{
+            model: User,
+            as: 'Writer'
+          }, {
+            model: User,
+            as: 'Editor'
+          }]
         })
         res.status(200).json(data)
       } else if(role === 'editor') {
@@ -17,9 +24,10 @@ class ArticleController {
             EditorId: id
           }
         })
+        res.status(200).json(data)
       }
-      res.status(200).json(data)
     } catch (error) {
+      console.log(error)
       next(error)
     }
   }
@@ -38,12 +46,14 @@ class ArticleController {
   }
   static async createArticle (req, res, next) {
     try {
+      let {id} = req.userLoggedIn
       let obj = {
         title: req.body.title,
         body: req.body.body,
-        WriterId: req.body.writerId,
+        WriterId: id,
         EditorId: req.body.editorId
       }
+      console.log(obj)
       let data = await Article.create(obj)
       res.status(201).json(data)
     } catch (error) {

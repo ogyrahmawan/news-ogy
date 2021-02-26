@@ -52,3 +52,22 @@ export const Login = (data: LoginViaEmailData) => (dispatch: any) => {
       dispatch(setLoadingAction())
     })
 }
+
+export const setEditor = (payload:any) => {
+  return {
+    type: 'SET_EDITOR',
+    payload
+  }
+}
+export const fetchEditor = () => (dispatch:any) => {
+  axios({
+    url: "/editors",
+    method: "GET"
+  })
+    .then(res => {
+      dispatch(setEditor(res.data))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
