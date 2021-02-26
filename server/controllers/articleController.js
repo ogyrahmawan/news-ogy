@@ -3,9 +3,24 @@ const {Article, User} = require('../models/index')
 class ArticleController {
   static async getAllArticle (req,res,next) {
     try {
-      
+      let {role, email, id} = req.userLoggedIn
+      if(role === 'writer') {
+        let data = await Article.findAll({
+          where: {
+            WriterId: id
+          }
+        })
+        res.status(200).json(data)
+      } else if(role === 'editor') {
+        let data = await Article.findAll({
+          where: {
+            EditorId: id
+          }
+        })
+      }
+      res.status(200).json(data)
     } catch (error) {
-      
+      next(error)
     }
   }
   static async getArticleById (req, res, next) {
