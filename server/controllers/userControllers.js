@@ -43,7 +43,8 @@ class UserController {
                 access_token, 
                 email: data.email, 
                 name: data.name,
-                role: data.role
+                role: data.role,
+                id: data.id
               })
           }
       }

@@ -36,9 +36,12 @@ export const Login = (data: LoginViaEmailData) => (dispatch: any) => {
       data: data
     })
     .then((res:any) =>{
+      console.log(res)
       dispatch(setLoginSuccessAction())
       localStorage.setItem('access_token', res.data.access_token)
-      localStorage.setItem('email', res.data.email)
+      localStorage.setItem('name', res.data.name)
+      localStorage.setItem('id',res.data.id)
+      localStorage.setItem('role',res.data.role)
       dispatch(setLoginUserDataAction(res.data.email))
     })
     .catch((err:any) => {

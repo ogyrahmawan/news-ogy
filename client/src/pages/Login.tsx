@@ -6,12 +6,17 @@ import { RootState } from '../redux/store'
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [formInput, setFormInput] =  useState({
     email: '',
     password: ''
   })
   const {success, userData, error, loading} = useSelector((state:RootState) => state.user)
-
+  useEffect(() => {
+    if(success) {
+      history.push('/dashboard')
+    }
+  }, [success])
   function handleChange (e: React.ChangeEvent<HTMLInputElement>) :void {
     setFormInput({...formInput, [e.target.name]: e.target.value})
   }

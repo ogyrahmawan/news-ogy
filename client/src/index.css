@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* login */
+.container_login {
+  min-height: 100vh;
+  margin-top: 100px;
+}
+.user_card {
+  height: 400px;
+  width: 350px;
+  background: #292b2c ;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+
+}
+.brand_logo_container {
+  position: absolute;
+  height: 170px;
+  width: 170px;
+  top: -75px;
+  border-radius: 50%;
+  background: white;
+}
+.form_container {
+  margin-top: 100px;
+}
+
+.form_container {
+  margin-top: 50px;
+}
+
+.login_btn:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+.login_container {
+  padding: 0 2rem;
+}
+.input-group input {
+  background: #5b5b5b;
+  border: none;
+  color: white;
+}
+
+.input-group input::placeholder {
+  color: white;
+}
+
+.input-group-text {
+  background:	#5b5b5b !important;
+  color: #b67171   !important;
+  border: 0 !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+.btn-login {
+  background: #ec4646;
+  color: #f6f6f6;
+  width: 100%;
+  border-radius: 2;
+}
+.btn-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: darkred;
+  border-radius: 100%;
+  border: solid;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  font-size: 50px;
+}
