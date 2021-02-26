@@ -11,12 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Article.belongsTo(models.User, {
-        as: "WriterId"
-      })
-      Article.belongsTo(models.User, {
-        as: "EditorId"
-      })
+      Article.belongsTo(models.User)
     }
   };
   Article.init({
