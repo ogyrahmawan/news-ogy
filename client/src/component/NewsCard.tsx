@@ -1,14 +1,30 @@
 import parser from 'html-react-parser'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { deleteArticleAction, setSelectedArticle } from '../redux/actions/ArticleAction'
 
 interface Iprops {
   article: any
 }
 const NewsCard:React.FC<Iprops> = ({article}) => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const handleDelete = (id:number) => {
+    dispatch(deleteArticleAction(id))
+  }
+  const handleToEditPage = (id:number) => {
+    dispatch(setSelectedArticle(article))
+    history.push(`/edit/${id}`)
+  }
   return (
-    <div key={article.id} className="card">
+    <div  className="card">
       <div className="card-body">
         <h5 className="card-title">{article.title}</h5>
         <p className="card-text">{parser(article.body)}</p>
+      </div>
+      <div className="btn-action">
+        <i onClick={() => handleToEditPage(article.id)} className="fas fa-pencil-alt"></i>
+        <i onClick={() => handleDelete(article.id)} className="fas fa-trash"></i>
       </div>
     </div>
   )

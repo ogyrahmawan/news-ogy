@@ -5,7 +5,11 @@ interface setArticleAction {
   type: typeof SET_ARTICLE
   payload:any
 }
-
+export const SET_SELECTED_ARTICLE = "SET_SELECTED_ARTICLE"
+interface setSelectedArticle {
+  type: typeof SET_SELECTED_ARTICLE
+  payload:any
+}
 export interface Article {
   id: number,
   title:string,
@@ -14,11 +18,12 @@ export interface Article {
   EditorId:Number
 }
 export interface ArticleInitialState {
-  data: Article[],
+  data: Article[]
   loading: boolean
+  selectedArticle: any
 }
 
-export type ArticleAction = setArticleAction | LoadingAction
+export type ArticleAction = setArticleAction | LoadingAction |setSelectedArticle
 //TYPES USER
 export const LOADING = "LOADING"
 export const SET_LOGIN_SUCCESS = "SET_LOGIN_SUCCESS"

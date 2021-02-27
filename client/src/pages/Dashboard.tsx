@@ -14,11 +14,13 @@ const Dashboard:React.FC = () => {
   const history = useHistory()
   return (
     <div className="container bg-light shadow" style={{minHeight: "100vh"}}>
-      {
-        articles.map((item:any) => (
-          <NewsCard key={item.id} article={item}></NewsCard>
-        ))
-      }
+      <div className="container p-3">
+        {
+          articles.map((item:any) => (
+            <NewsCard key={item.id} article={item}></NewsCard>
+          ))
+        }
+      </div>
       <button onClick={() => history.push('/newarticle')} className="btn-add">+</button>
     </div>
   )

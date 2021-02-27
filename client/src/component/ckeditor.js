@@ -4,7 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const FormArticle  = ({setFormInput, formInput}) => {
-  const [body, setBody] = useState('')
+  const [body, setBody] = useState(formInput.body)
   useEffect(() => {
     setFormInput({...formInput, body: body})
   }, [body])

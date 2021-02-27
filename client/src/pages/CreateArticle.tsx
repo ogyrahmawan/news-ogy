@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import FormArticle from '../component/ckeditor'
 import { addArticle } from '../redux/actions/ArticleAction'
 import { fetchEditor } from '../redux/actions/UserActions'
@@ -7,6 +8,7 @@ import { RootState } from '../redux/store'
 
 const CreateArticle:React.FC = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [formInput, setFormInput] = useState({
     title: '',
     body: '',
@@ -25,6 +27,7 @@ const CreateArticle:React.FC = () => {
   }
   const handleSubmit = () => {
     dispatch(addArticle(formInput))
+    history.push('/dashboard')
   } 
   return(
     <div className="container bg-light" style={{minHeight: "100vh"}}>

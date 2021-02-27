@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { LOADING, SET_ARTICLE } from '../types'
+import { LOADING, SET_ARTICLE, SET_SELECTED_ARTICLE } from '../types'
 
 export const setArticle = (payload:any) => {
   return {
@@ -13,8 +13,30 @@ export const setLoading = () => {
   }
 }
 
+export const setSelectedArticle = (payload:any) => {
+  return {
+    type: SET_SELECTED_ARTICLE,
+    payload
+  }
+}
+
+export const fetchArticleById = (id:string) => (dispatch: any) => {
+  axios({
+    url: `/articles/${id}`,
+    method: "GET",
+    headers: {
+      access_token: localStorage.access_token
+    }
+  })
+    .then(res => {
+      dispatch(setSelectedArticle(res.data))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
 export const fetchArticle = () => (dispatch: any) => {
-  console.log('test')
   axios({
     url: "/articles",
     method: "GET",
@@ -32,8 +54,9 @@ export const fetchArticle = () => (dispatch: any) => {
 }
 
 export const addArticle = (payload:any) => (dispatch: any) => {
+  
   axios({
-    url: "articles",
+    url: "/articles",
     method: "POST",
     headers: {
       access_token: localStorage.access_token
@@ -42,6 +65,38 @@ export const addArticle = (payload:any) => (dispatch: any) => {
   })
     .then(res => {
       console.log(res.data)
+      dispatch(fetchArticle())
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+export const deleteArticleAction = (id:number) => (dispatch:any) => {
+  axios({
+    url: `/articles/${id}`,
+    method: "DELETE",
+    headers: {
+      access_token: localStorage.access_token
+    },
+    
+  })
+    .then(res => {
+      dispatch(fetchArticle())
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+export const editArticleAction = (payload:any, id:number) => (dispatch:any) => {
+  axios({
+    url: `/articles/${id}`,
+    method: "PUT",
+    headers: {
+      access_token: localStorage.access_token
+    },
+    data: payload
+  })
+    .then(res => {
       dispatch(fetchArticle())
     })
     .catch(err => {

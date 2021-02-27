@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Article.init({
-    title: DataTypes.STRING,
-    body: DataTypes.STRING,
+    title: DataTypes.TEXT,
+    body: DataTypes.TEXT,
     WriterId: {
       type: DataTypes.INTEGER,
       references: {

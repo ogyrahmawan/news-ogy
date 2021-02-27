@@ -1,8 +1,9 @@
-import { SET_ARTICLE, ArticleInitialState, ArticleAction, LOADING } from "../types";
+import { SET_ARTICLE, ArticleInitialState, ArticleAction, LOADING, SET_SELECTED_ARTICLE } from "../types";
 
 const initialState:ArticleInitialState = {
   data: [],
-  loading: false
+  loading: false,
+  selectedArticle: {}
 }
 
 const articleReducer = (state=initialState, action:ArticleAction) => {
@@ -11,6 +12,8 @@ const articleReducer = (state=initialState, action:ArticleAction) => {
       return {...state, data: action.payload}
     case LOADING:
       return {...state, loading: !state.loading}
+    case SET_SELECTED_ARTICLE:
+      return {...state, selectedArticle: action.payload}
     default:
       return state
   }

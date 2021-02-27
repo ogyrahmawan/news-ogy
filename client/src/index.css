@@ -95,3 +95,16 @@ code {
   right: 30px;
   font-size: 50px;
 }
+
+.btn-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.btn-action i {
+  font-size: 20px;
+  margin: 5px;
+}

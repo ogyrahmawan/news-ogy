@@ -22,7 +22,14 @@ class ArticleController {
         let data = await Article.findAll({
           where: {
             EditorId: id
-          }
+          },
+          include: [{
+            model: User,
+            as: 'Writer'
+          }, {
+            model: User,
+            as: 'Editor'
+          }]
         })
         res.status(200).json(data)
       }
@@ -33,11 +40,19 @@ class ArticleController {
   }
   static async getArticleById (req, res, next) {
     try {
+      console.log('test')
       let {id} = req.params
       let data = await Article.findOne({
         where: {
-          id
-        }
+          id: +id
+        },
+        include: [{
+          model: User,
+          as: 'Writer'
+        }, {
+          model: User,
+          as: 'Editor'
+        }]
       })
       res.status(200).json(data)
     } catch (error) {
@@ -46,17 +61,17 @@ class ArticleController {
   }
   static async createArticle (req, res, next) {
     try {
-      let {id} = req.userLoggedIn
       let obj = {
         title: req.body.title,
         body: req.body.body,
-        WriterId: id,
-        EditorId: req.body.editorId
+        WriterId: +req.body.writerId,
+        EditorId: +req.body.editorId
       }
       console.log(obj)
       let data = await Article.create(obj)
       res.status(201).json(data)
     } catch (error) {
+      console.log(error)
       next(error)
     }
   }
@@ -65,22 +80,8 @@ class ArticleController {
       let {id} = req.params
       let obj = {
         title: req.body.title,
-        body: req.body.body
-      }
-      let data = await Article.update(obj, {
-        where: {
-          id
-        }
-      })
-      res.status(200).json(data[1])
-    } catch (error) {
-      next(error)
-    }
-  }
-  static async editEditorOfArticle (req, res, next) {
-    try {
-      let {id} = req.params
-      let obj = {
+        body: req.body.body,
+        WriterId: req.body.writerId,
         EditorId: req.body.editorId
       }
       let data = await Article.update(obj, {
@@ -93,6 +94,7 @@ class ArticleController {
       next(error)
     }
   }
+
   static async deleteArticle (req, res, next) {
     try {
       let {id} = req.params
