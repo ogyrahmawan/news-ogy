@@ -89,7 +89,7 @@ export const deleteArticleAction = (id:number) => (dispatch:any) => {
 }
 export const editArticleAction = (payload:any, id:number) => (dispatch:any) => {
   axios({
-    url: `/articles/${id}`,
+    url: `/articles/ ${id}`,
     method: "PUT",
     headers: {
       access_token: localStorage.access_token
