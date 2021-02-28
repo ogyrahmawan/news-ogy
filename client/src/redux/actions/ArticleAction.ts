@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { LOADING, SET_ARTICLE, SET_SELECTED_ARTICLE } from '../types'
-
+import Swal from 'sweetalert2'
 export const setArticle = (payload:any) => {
   return {
     type: SET_ARTICLE,
@@ -32,7 +32,11 @@ export const fetchArticleById = (id:string) => (dispatch: any) => {
       dispatch(setSelectedArticle(res.data))
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
     })
 }
 
@@ -45,11 +49,14 @@ export const fetchArticle = () => (dispatch: any) => {
     }
   })
     .then(res => {
-      console.log(res.data)
       dispatch(setArticle(res.data))
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
     })
 }
 
@@ -64,11 +71,19 @@ export const addArticle = (payload:any) => (dispatch: any) => {
     data: payload
   })
     .then(res => {
-      console.log(res.data)
+      Swal.fire(
+        'Good job!',
+        'Create  Article Success!',
+        'success'
+      )
       dispatch(fetchArticle())
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
     })
 }
 export const deleteArticleAction = (id:number) => (dispatch:any) => {
@@ -78,13 +93,21 @@ export const deleteArticleAction = (id:number) => (dispatch:any) => {
     headers: {
       access_token: localStorage.access_token
     },
-    
   })
     .then(res => {
+      Swal.fire(
+        'Good job!',
+        'Delete Success!',
+        'success'
+      )
       dispatch(fetchArticle())
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
     })
 }
 export const editArticleAction = (payload:any, id:number) => (dispatch:any) => {
@@ -97,9 +120,18 @@ export const editArticleAction = (payload:any, id:number) => (dispatch:any) => {
     data: payload
   })
     .then(res => {
+      Swal.fire(
+        'Good job!',
+        'Edit  Article Success!',
+        'success'
+      )
       dispatch(fetchArticle())
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
     })
 }

@@ -12,6 +12,14 @@ code {
     monospace;
 }
 
+/* navbar */
+nav a:hover {
+  text-decoration: none;
+  color: #ec4646;
+}
+nav a {
+  color: white;
+}
 /* login */
 .container_login {
   min-height: 100vh;
@@ -37,6 +45,14 @@ code {
   top: -75px;
   border-radius: 50%;
   background: white;
+}
+.brand_logo_container img {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
 }
 .form_container {
   margin-top: 100px;
@@ -90,7 +106,7 @@ code {
   border: solid;
   width: 70px;
   height: 70px;
-  position: absolute;
+  position: fixed;
   bottom: 40px;
   right: 30px;
   font-size: 50px;

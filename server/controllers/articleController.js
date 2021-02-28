@@ -40,7 +40,6 @@ class ArticleController {
   }
   static async getArticleById (req, res, next) {
     try {
-      console.log('test')
       let {id} = req.params
       let data = await Article.findOne({
         where: {
@@ -67,11 +66,9 @@ class ArticleController {
         WriterId: +req.body.writerId,
         EditorId: +req.body.editorId
       }
-      console.log(obj)
       let data = await Article.create(obj)
       res.status(201).json(data)
     } catch (error) {
-      console.log(error)
       next(error)
     }
   }

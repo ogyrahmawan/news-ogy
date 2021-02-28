@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
+import Navbar from "../component/Navbar"
 import NewsCard from "../component/NewsCard"
 import { fetchArticle } from "../redux/actions/ArticleAction"
 import { RootState } from "../redux/store"
@@ -12,7 +13,14 @@ const Dashboard:React.FC = () => {
     dispatch(fetchArticle())
   }, [])
   const history = useHistory()
+  useEffect(() => {
+    if(!localStorage.access_token) {
+      history.push('/')
+    }
+  }, [])
   return (
+    <>
+    <Navbar></Navbar>
     <div className="container bg-light shadow" style={{minHeight: "100vh"}}>
       <div className="container p-3">
         {
@@ -23,6 +31,7 @@ const Dashboard:React.FC = () => {
       </div>
       <button onClick={() => history.push('/newarticle')} className="btn-add">+</button>
     </div>
+    </>
   )
 }
 

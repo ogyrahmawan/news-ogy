@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import FormArticle from '../component/ckeditor'
+import Navbar from '../component/Navbar'
 import { addArticle } from '../redux/actions/ArticleAction'
 import { fetchEditor } from '../redux/actions/UserActions'
 import { RootState } from '../redux/store'
@@ -16,7 +17,14 @@ const CreateArticle:React.FC = () => {
     editorId: 0
   })
   const editorList = useSelector((state:RootState) => state.editor.data) 
-
+  useEffect(() => {
+    if(!localStorage.access_token) {
+      history.push('/')
+    }
+    if(localStorage.role === "editor") {
+      history.push('/dashboard')
+    }
+  }, [])
   useEffect(() => {
     dispatch(fetchEditor())
   }, [dispatch])
@@ -30,7 +38,9 @@ const CreateArticle:React.FC = () => {
     history.push('/dashboard')
   } 
   return(
-    <div className="container bg-light" style={{minHeight: "100vh"}}>
+    <>
+    <Navbar>  </Navbar>
+    <div className="container p-3 bg-light" style={{minHeight: "100vh"}}>
       <input 
         name="title"
         onChange={handleChange}
@@ -41,9 +51,10 @@ const CreateArticle:React.FC = () => {
         placeholder="title" 
       />
       <FormArticle setFormInput={setFormInput} formInput={formInput}></FormArticle>
-      <div className="editor-input mt-5">
+      <div className="editor-input mt-5 d-flex justify-content-center">
         <label>Pick Your Editor</label>
-        <select onChange={handleChange} name="editorId">
+        <select onChange={handleChange} className="ml-3" name="editorId">
+          <option value={0} >pick</option>
           {
             editorList.map((item:any) => (
               <option key={item.id} value={item.id}>{item.name}</option>
@@ -51,11 +62,22 @@ const CreateArticle:React.FC = () => {
           }
         </select>
       </div>
-      <div className="create-article-footer d-flex justify-content-end mt-5 mr-3">
+        {
+          formInput.editorId == 0 ?
+          <div className="d-flex justify-content-center text-danger">
+          <span>Pick your editor</span>
+          </div>
+          :
+          ""
+        }
+      <div className="create-article-footer d-flex justify-content-center mt-5 mr-3">
         <button onClick={() => handleSubmit()} className="btn btn-primary mr-3">Save</button>
-        <button className="btn btn-danger">Cancel</button>
+        <Link to="/dashboard">
+            <button className="btn btn-danger">Cancel</button>
+          </Link>
       </div>
     </div>
+    </>
   )
 }
 export default CreateArticle

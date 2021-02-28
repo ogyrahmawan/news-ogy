@@ -12,7 +12,7 @@ const userReducer = (state = initialState, action: UserAction ) => {
     case SET_USER_DATA:
       return {...state, userData: action.payload}
     case SET_LOGIN_SUCCESS:
-      return {...state, success: true}
+      return {...state, success: !state.success}
     case SET_LOGIN_ERROR:
       return {...state, error: true}
     case LOADING:

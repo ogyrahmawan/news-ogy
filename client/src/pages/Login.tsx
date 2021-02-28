@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'   
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
-import { Login } from '../redux/actions/UserActions'
+import { Login, setLoginSuccessAction } from '../redux/actions/UserActions'
 import { RootState } from '../redux/store'
+import Logo from '../assets/logo.png'
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch()
@@ -11,18 +12,23 @@ const LoginPage: React.FC = () => {
     email: '',
     password: ''
   })
-  const {success, userData, error, loading} = useSelector((state:RootState) => state.user)
+  const {success} = useSelector((state:RootState) => state.user)
+  console.log(success)
   useEffect(() => {
     if(success) {
       history.push('/dashboard')
     }
   }, [success])
+  useEffect(() => {
+    if(localStorage.access_token) {
+      history.push('/dashboard')
+    }
+  })
   function handleChange (e: React.ChangeEvent<HTMLInputElement>) :void {
     setFormInput({...formInput, [e.target.name]: e.target.value})
   }
   function handleSubmit (e: any) : void {
     e.preventDefault()
-    // console.log(formInput)
     dispatch(Login(formInput))
   }
 
@@ -32,6 +38,7 @@ const LoginPage: React.FC = () => {
         <div className="user_card">
           <div className="d-flex justify-content-center">
             <div className="brand_logo_container">
+              <img src={Logo} alt="logo"></img>
             </div>
             <form onSubmit={handleSubmit} >
               <div className="input-group mt-5 mb-3">
@@ -46,9 +53,6 @@ const LoginPage: React.FC = () => {
                 </div>
                 <input onChange={handleChange} name="password" type="password"  className="form-control input_pass"  placeholder="password" required />
               </div>
-              <Link to="/register">
-                <span className="text-white ">dont have account? SignUp</span>
-              </Link>
               <button type="submit" name="button" className=" btn-login mt-4">LOGIN</button>
             </form>
           </div>

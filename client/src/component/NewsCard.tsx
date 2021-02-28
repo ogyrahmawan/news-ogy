@@ -2,18 +2,28 @@ import parser from 'html-react-parser'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { deleteArticleAction, setSelectedArticle } from '../redux/actions/ArticleAction'
-
+import Swal from 'sweetalert2'
 interface Iprops {
   article: any
 }
+
 const NewsCard:React.FC<Iprops> = ({article}) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const handleDelete = (id:number) => {
-    dispatch(deleteArticleAction(id))
+    Swal.fire({
+      title: `Do you want to delete ${article.title} ?`,
+      showCancelButton: true,
+      confirmButtonText: `Delete`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteArticleAction(id))
+      } 
+    })
   }
   const handleToEditPage = (id:number) => {
     dispatch(setSelectedArticle(article))
+
     history.push(`/edit/${id}`)
   }
   return (
