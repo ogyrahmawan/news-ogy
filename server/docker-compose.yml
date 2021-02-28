@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  database:
+    image: "postgres:latest"
+    ports: 
+      - "127.0.0.1:36876"
+    command: postgresq

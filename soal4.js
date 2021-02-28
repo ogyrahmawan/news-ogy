@@ -66,7 +66,6 @@ function checkFibonacci (array) {
   }
   return counter
 }
-console.log(checkFibonacci(array))
 
 function sort (array) {
   let newArray = []
